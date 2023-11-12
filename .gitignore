@@ -1,0 +1,17 @@
+# Default ignored files
+/shelf/
+/workspace.xml
+# Editor-based HTTP Client requests
+/httpRequests/
+# Datasource local storage ignored files
+/dataSources/
+/dataSources.local.xml
+/inspectionProfiles/profiles_settings.xml
+/inspectionProfiles/Project_Default.xml
+/misc.xml
+/mistral-chat.iml
+/modules.xml
+/vcs.xml
+/.idea
+/mistral_chat/LLMs/openhermes-2.5-mistral-7b.Q8_0.gguf
+/mistral_chat/LLMs/__pycache__
