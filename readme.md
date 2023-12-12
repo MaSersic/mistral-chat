@@ -13,9 +13,11 @@ Download the [quantized model](https://huggingface.co/TheBloke/OpenHermes-2.5-Mi
 
 TODO:
 
-Automate the model download, docker container creation, github actions
+PDF ingestion
 
 Store vectorized conversation data.
+
+Automate the model download, docker container creation, github actions
 
 Create a login system.
 
