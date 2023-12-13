@@ -1,6 +1,7 @@
 from django.core.files.storage import FileSystemStorage
 from django.http import JsonResponse, HttpResponseRedirect
 from django.shortcuts import render
+from .forms import UploadPDFForm
 
 from mistral_chat.LLMs import llm
 
@@ -8,10 +9,23 @@ model = llm.LLM(n_ctx=16384, max_tokens=2000)
 
 
 def chat(request):
+    if request.method == "POST":
+        form = UploadPDFForm(request.POST, request.FILES)
+        if form.is_valid():
+            model.load_file_from_pdf(request.FILES["file"])
+            response = model.ask(request.POST.get('prompt'))
+            return JsonResponse({'response': response})
+        form.prompt = ""
+    else:
+        form = UploadPDFForm()
+    return render(request, "chat.html", {"form": form})
+
+
+def ochat(request):
     if request.method == 'POST':
 
-        if 'file' in request.FILES:
-            pdf = request.FILES('file')
+        if 'pdf_file' in request.FILES:
+            pdf = request.FILES('pdf_file')
             fs = FileSystemStorage()
             filename = fs.save(pdf.name, pdf)
             llm.load_file_from_pdf(pdf)

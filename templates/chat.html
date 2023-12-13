@@ -15,15 +15,6 @@
 
         <script>
             $(document).ready(function() {
-                // Send the form on enter keypress and avoid if shift is pressed
-                $('#prompt').keypress(function(event) {
-                    if (event.keyCode === 13 && !event.shiftKey) {
-                        event.preventDefault();
-                        $('form').submit();
-                    }
-                });
-                $('form').on('submit', function(event) {
-                    event.preventDefault();
                 // get the CSRF token from the cookie
                 var csrftoken = Cookies.get('csrftoken');
 
@@ -62,13 +53,16 @@
         </section>
         <div class="container p-3">
             <div class="mb-3">
-                <form method="post">
+                <form id="form" method="POST" enctype="multipart/form-data">
                     {% csrf_token %}
-                    <label for="file" class="form-label">PDF upload: </label>
-                    <input type="file" id="pdf_file" name="pdf_file" accept=".pdf">
-                    <label for="prompt" class="form-label">Prompt: </label>
-                    <textarea class="form-control" type="textarea" id="prompt" name="prompt" rows="3"></textarea>
-                    <br>
+                    <div class="form-group">
+                        <label for="file" class="form-label">PDF upload: </label>
+                        {{ form.file }}
+                    </div>
+                    <div class="form-group">
+                        <label for="prompt" class="form-label">Prompt: </label>
+                        {{ form.prompt }}
+                    </div>
                     <button class="btn btn-primary" type="submit">Submit</button>
                 </form>
             </div>
